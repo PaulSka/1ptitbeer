@@ -50,3 +50,17 @@ of those sections to manage the look and feel of the site. */
     height: 100%;
     padding-top: 50px;
 }
+
+.team-section {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.team-section img {
+  margin: 0 auto;
+  border: 7px solid #444444;
+}
+
+.titre-news {
+    margin-top: 0px;
+}
