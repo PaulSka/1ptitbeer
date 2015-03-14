@@ -1,3 +1,8 @@
 # 1ptitbeer
 
-##TODO
+# Installation
+
+* NodeJS + NPM
+* Bower
+
+bower install

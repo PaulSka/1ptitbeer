@@ -9,13 +9,19 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Scrolling Nav - Start Bootstrap Template</title>
+        <title>1ptitbeer</title>
 
         <!-- CSS -->
         <!-- Bootstrap CSS-->
         <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
         <!-- Font Awesome CSS-->
         <link href="bower_components/fontawesome/css/font-awesome.css" rel="stylesheet">
+        <!-- Datatables CSS -->
+        <link href="bower_components/datatables/media/css/jquery.dataTables.css" rel="stylesheet">
+        <!-- Datatables FontAwesome CSS -->
+        <link href="css/dataTables.fontAwesome.css" rel="stylesheet">
+        <!-- Simplex Bootstrap CSS-->
+        <link href="css/simplex-bootstrap.min.css" rel="stylesheet">
         <!-- App CSS-->
         <link href="css/app.css" rel="stylesheet">
         <!-- Fin CSS -->
@@ -36,7 +42,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand page-scroll" href="#page-top">Start Bootstrap</a>
+                    <a class="navbar-brand page-scroll" href="#page-top">1ptitbeer</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -67,9 +73,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1>Scrolling Nav</h1>
-                        <p><strong>Usage Instructions:</strong> Make sure to include the <code>scrolling-nav.js</code>, <code>jquery.easing.min.js</code>, and <code>scrolling-nav.css</code> files. To make a link smooth scroll to another section on the page, give the link the <code>.page-scroll</code> class and set the link target to a corresponding ID on the page.</p>
-                        <a class="btn btn-default page-scroll" href="#about">Click Me to Scroll Down!</a>
+                        <div class="page-header">
+                            <h1>Le comptoir <small>(les dernières bréves)</small></h1>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -80,7 +86,64 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1>About Section</h1>
+                        <div class="page-header">
+                            <h1>J'ai soif ! <small>(listing des différentes bières)</small></h1>
+                        </div>
+
+                        <!-- Table des bieres -->
+                        <table id="table_bieres" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Nom de la bières</th>
+                                    <th>Nom du bar</th>
+                                    <th>Prix</th>
+                                    <th>Dernières mise à jour</th>
+                                </tr>
+                            </thead>
+
+                            <tfoot>
+                                <tr>
+                                    <th>Nom de la bières</th>
+                                    <th>Nom du bar</th>
+                                    <th>Prix</th>
+                                    <th>Dernières mise à jour</th>
+                                </tr>
+                            </tfoot>
+
+                            <tbody>
+                                <tr>
+                                    <td>Biere 1</td>
+                                    <td>Bar 1</td>
+                                    <td>3€</td>
+                                    <td>14/03/2015</td>
+                                </tr>
+                                <tr>
+                                    <td>Biere 1</td>
+                                    <td>Bar 2</td>
+                                    <td>2,75€</td>
+                                    <td>10/03/2015</td>
+                                </tr>
+                                <tr>
+                                    <td>Biere 2</td>
+                                    <td>Bar 3</td>
+                                    <td>4€</td>
+                                    <td>14/02/2015</td>
+                                </tr>
+                                <tr>
+                                    <td>Biere 2</td>
+                                    <td>Bar 1</td>
+                                    <td>3€</td>
+                                    <td>14/02/2015</td>
+                                </tr>
+                                <tr>
+                                    <td>Biere 1</td>
+                                    <td>Bar 3</td>
+                                    <td>4€</td>
+                                    <td>01/01/2015</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- Fin Table -->
                     </div>
                 </div>
             </div>
@@ -91,7 +154,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1>Services Section</h1>
+                        <div class="page-header">
+                            <h1>A quoi ça sert ? <small>(l'histoire et les outils utilisés)</small></h1>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -102,7 +167,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1>Contact Section</h1>
+                        <div class="page-header">
+                            <h1>Tavernieeeer ! <small>(contact)</small></h1>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -113,13 +180,20 @@
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <!-- Bootstrap JS -->
         <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <!-- DataTables JS -->
+        <script src="bower_components/datatables/media/js/jquery.dataTables.js"></script>
+        <!-- DataTables Bootstrap JS -->
+        <script src="js/dataTables.bootstrap.js"></script>
         <!-- Easing JS -->
         <script src="bower_components/jquery.easing/js/jquery.easing.js"></script>
         <!-- Scroll -->
         <script src="js/scrolling-nav.js"></script>
         <script>
             $( document ).ready(function() {
-                console.log("OK !");
+                $('#table_bieres').dataTable({
+                    "order": [[ 0, "asc" ]],
+                    "oSearch": { "bSmart": false, "bRegex": true }
+                });
             });
         </script>
         <!-- FIn Javascript -->
