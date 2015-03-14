@@ -1,0 +1,25 @@
+{
+  "name": "1ptitbeer",
+  "version": "0.0.0",
+  "main": "index.html",
+  "moduleType": [
+    "node"
+  ],
+  "authors": [
+    "Mathieu LYSAKOWSKI <lysakowskimg@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.2",
+    "fontawesome": "~4.3.0",
+    "jquery.easing": "~1.3.1"
+  }
+}
