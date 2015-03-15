@@ -118,39 +118,6 @@
                                     <th>Dernières mise à jour</th>
                                 </tr>
                             </tfoot>
-
-                            <tbody>
-                                <tr>
-                                    <td>Biere 1</td>
-                                    <td>Bar 1</td>
-                                    <td>3€</td>
-                                    <td>14/03/2015</td>
-                                </tr>
-                                <tr>
-                                    <td>Biere 1</td>
-                                    <td>Bar 2</td>
-                                    <td>2,75€</td>
-                                    <td>10/03/2015</td>
-                                </tr>
-                                <tr>
-                                    <td>Biere 2</td>
-                                    <td>Bar 3</td>
-                                    <td>4€</td>
-                                    <td>14/02/2015</td>
-                                </tr>
-                                <tr>
-                                    <td>Biere 2</td>
-                                    <td>Bar 1</td>
-                                    <td>3€</td>
-                                    <td>14/02/2015</td>
-                                </tr>
-                                <tr>
-                                    <td>Biere 1</td>
-                                    <td>Bar 3</td>
-                                    <td>4€</td>
-                                    <td>01/01/2015</td>
-                                </tr>
-                            </tbody>
                         </table>
                         <!-- Fin Table -->
                     </div>
@@ -232,9 +199,33 @@
         <script src="js/scrolling-nav.js"></script>
         <script>
             $( document ).ready(function() {
-                $('#table_bieres').dataTable({
+
+                $('#table_bieres').DataTable({
+                    "ajax" : "dummy_data.json",
+                    "columns" : [
+                        { data : "biere_nom"},
+                        { data : "bar_nom"},
+                        { data : "prix"},
+                        { data : "date_maj"},
+                    ],
                     "order": [[ 0, "asc" ]],
-                    "oSearch": { "bSmart": false, "bRegex": true }
+                    "oSearch": { "bSmart": false, "bRegex": true },
+
+                    "aoColumnDefs": [            
+                         {
+                           "aTargets": [ 0 ], // Column to target
+                           "mRender": function ( data, type, full ) {
+                             // 'full' is the row's data object, and 'data' is this column's data
+                             // e.g. 'full[0]' is the comic id, and 'data' is the comic title
+                             return '<a href="#">' + data + '</a>';
+                           }
+                         }
+                       ],
+                    "language" : {
+                        "url" : "//cdn.datatables.net/plug-ins/f2c75b7247b/i18n/French.json"
+                    }
+
+
                 });
             });
         </script>
