@@ -62,6 +62,11 @@
                             <a class="page-scroll" href="#contact">Tavernieeeer !</a>
                         </li>
                     </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#">Version 0.1</a>
+                        </li>
+                    </ul>
                 </div>
                 <!-- /.navbar-collapse -->
             </div>
@@ -99,6 +104,9 @@
                                     <th>Nom du bar</th>
                                     <th>Prix</th>
                                     <th>Dernières mise à jour</th>
+                                    <th>_id</th>
+                                    <th>_id_biere</th>
+                                    <th>_id_bar</th>
                                 </tr>
                             </thead>
 
@@ -108,6 +116,9 @@
                                     <th>Nom du bar</th>
                                     <th>Prix</th>
                                     <th>Dernières mise à jour</th>
+                                    <th>_id</th>
+                                    <th>_id_biere</th>
+                                    <th>_id_bar</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -144,7 +155,7 @@
                             <div class="col-lg-4">
                                 <div class="team-section">
                                     <img src="http://www.gravatar.com/avatar/9166a0728fd2b990d00f63b4b5b1088b?s=200" class="img-responsive img-circle"/>
-                                    <h4>Mathieu LYSAKOWSKI (PaulSka)</h4>
+                                    <h4>PaulSka (Mathieu LYSAKOWSKI)</h4>
                                     <p class="text-muted">Tavernier</p>
                                     <ul class="list-inline">
                                         <li>
@@ -182,7 +193,12 @@
                                     <p class="text-muted">All your base are belong to us</p>
                                     <ul class="list-inline">
                                         <li>
-                                            <a href="https://twitter.com/lysakowskim">
+                                            <a href="mailto:lysakowskimg+1ptitbeer@gmail.com">
+                                                <i class="fa fa-envelope fa-3x"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://twitter.com/1ptitbeer">
                                                 <i class="fa fa-twitter-square fa-3x"></i>
                                             </a>
                                         </li>
@@ -229,7 +245,7 @@
                     <i class="fa pull-left team-section"><img src="https://robohash.org/1ptitbeer.png?size=80x80" class="img-responsive img-circle"/></i>
                     <h2 class="titre-news">News !</h2>
                     <p class="text-muted">{{created_at}}</p>
-                    <p>{{text}}</p>
+                    <h4>{{text}}</h4>
                 </div>
             </div>
         </script>
@@ -262,35 +278,38 @@
                         { data : "bar_nom"},
                         { data : "prix"},
                         { data : "date_maj"},
+                        { data : "_id"},
+                        { data : "_id_biere"},
+                        { data : "_id_bar"},
                     ],
                     "order": [[ 0, "asc" ]],
                     "oSearch": { "bSmart": false, "bRegex": true },
 
-                    "aoColumnDefs": [            
+                    "columnDefs": [            
                          {
-                           "aTargets": [ 0 ], // Column to target
-                           "mRender": function ( data, type, full ) {
-                             // 'full' is the row's data object, and 'data' is this column's data
-                             // e.g. 'full[0]' is the comic id, and 'data' is the comic title
-                             return '<a href="#" data-toggle="modal" data-target="#myModal">' + data + '</a>';
+                           "targets": 0, // Column to target
+                           "render": function ( data, type, row, meta ) {
+                             return '<a href="/get_beer/' + row._id_biere + '" data-toggle="modal" data-target="#myModal">' + data  + '</a>';
                            }
                          },
                          {
-                           "aTargets": [ 1 ], // Column to target
-                           "mRender": function ( data, type, full ) {
-                             // 'full' is the row's data object, and 'data' is this column's data
-                             // e.g. 'full[0]' is the comic id, and 'data' is the comic title
-                             return '<a href="#" data-toggle="modal" data-target="#myModal">' + data + '</a>';
+                           "targets": 1, // Column to target
+                           "render": function ( data, type, row, meta ) {
+                             return '<a href="/get_pub/' + row._id_bar + '" data-toggle="modal" data-target="#myModal">' + data  + '</a>';
                            }
                          },
                          {
-                           "aTargets": [ 3 ], // Column to target
-                           "mRender": function ( data, type, full ) {
-                             // 'full' is the row's data object, and 'data' is this column's data
-                             // e.g. 'full[0]' is the comic id, and 'data' is the comic title
-                             return '<a href="#" data-toggle="modal" data-target="#myModal">' + data + '</a>';
+                           "targets": 3, // Column to target
+                           "render": function ( data, type, row, meta ) {
+                             return '<a href="/get_price/' + row._id + '" data-toggle="modal" data-target="#myModal">' + data  + '</a>';
                            }
-                         }
+                         },
+                         //Hide column
+                         {
+                            "targets": [4,5,6],
+                            "visible" : false,
+                            "searchable" : false,
+                         },
                        ],
                     "language" : {
                         "url" : "//cdn.datatables.net/plug-ins/f2c75b7247b/i18n/French.json"
@@ -304,8 +323,6 @@
                     tweets = data.tweets
                     $.each(tweets, function(i, item) {
                         var news;
-                        console.log(item);
-                        console.log(item.text);
                         news = ich.template_news(item);
                         $("#news_list").append(news)
 
