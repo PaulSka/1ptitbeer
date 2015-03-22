@@ -275,7 +275,7 @@
             $( document ).ready(function() {
 
                 $('#table_bieres').DataTable({
-                    "ajax" : "{{url_for('static', filename='dummy_data.json')}}",
+                    "ajax" : "get_all_prices",
                     "columns" : [
                         { data : "biere_nom"},
                         { data : "bar_nom"},
@@ -292,13 +292,13 @@
                          {
                            "targets": 0, // Column to target
                            "render": function ( data, type, row, meta ) {
-                             return '<a href="/get_beer/' + row._id_biere + '" data-toggle="modal" data-target="#myModal">' + data  + '</a>';
+                             return '<a href="/get_beers/' + row._id_biere + '" data-toggle="modal" data-target="#myModal">' + data  + '</a>';
                            }
                          },
                          {
                            "targets": 1, // Column to target
                            "render": function ( data, type, row, meta ) {
-                             return '<a href="/get_pub/' + row._id_bar + '" data-toggle="modal" data-target="#myModal">' + data  + '</a>';
+                             return '<a href="/get_pubs/' + row._id_bar + '" data-toggle="modal" data-target="#myModal">' + data  + '</a>';
                            }
                          },
                          {
@@ -324,7 +324,6 @@
                 $.getJSON("http://api.tweecool.com/?screenname=LysakowskiM&count=5", function (data) {
                     var tweets;
                     tweets = data.tweets
-                    console.log(tweets);
                     $.each(tweets, function(i, item) {
                         var news;
                         news = ich.template_news(item);
