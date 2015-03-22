@@ -12,18 +12,19 @@
         <title>1ptitbeer</title>
 
         <!-- CSS -->
+
         <!-- Bootstrap CSS-->
-        <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+        <link href="{{url_for('static', filename='bower_components/bootstrap/dist/css/bootstrap.css')}}" rel="stylesheet">
         <!-- Font Awesome CSS-->
-        <link href="bower_components/fontawesome/css/font-awesome.css" rel="stylesheet">
+        <link href="{{url_for('static', filename='bower_components/fontawesome/css/font-awesome.css')}}" rel="stylesheet">
         <!-- Datatables CSS -->
-        <link href="bower_components/datatables/media/css/jquery.dataTables.css" rel="stylesheet">
+        <link href="{{url_for('static', filename='bower_components/datatables/media/css/jquery.dataTables.css')}}" rel="stylesheet">
         <!-- Datatables FontAwesome CSS -->
-        <link href="css/dataTables.fontAwesome.css" rel="stylesheet">
+        <link href="{{url_for('static', filename='css/dataTables.fontAwesome.css')}}" rel="stylesheet">
         <!-- Simplex Bootstrap CSS-->
-        <link href="css/simplex-bootstrap.min.css" rel="stylesheet">
+        <link href="{{url_for('static', filename='css/simplex-bootstrap.min.css')}}" rel="stylesheet">
         <!-- App CSS-->
-        <link href="css/app.css" rel="stylesheet">
+        <link href="{{url_for('static', filename='css/app.css')}}" rel="stylesheet">
         <!-- Fin CSS -->
 
     </head>
@@ -239,6 +240,7 @@
 
         <!-- Template I Can Haz -->
         <!-- Template News -->
+        {% raw %}
         <script id="template_news" type="text/html">
             <div class="row">
                 <div class="col-lg-12">
@@ -249,30 +251,31 @@
                 </div>
             </div>
         </script>
+        {% endraw %}
         <!-- Fin Template News -->
         <!-- Fin Template -->
 
         <!-- Javascript -->
         <!-- Jquery JS -->
-        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="{{url_for('static', filename='bower_components/jquery/dist/jquery.js')}}"></script>
         <!-- Bootstrap JS -->
-        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="{{url_for('static', filename='bower_components/bootstrap/dist/js/bootstrap.js')}}"></script>
         <!-- DataTables JS -->
-        <script src="bower_components/datatables/media/js/jquery.dataTables.js"></script>
+        <script src="{{url_for('static', filename='bower_components/datatables/media/js/jquery.dataTables.js')}}"></script>
         <!-- DataTables Bootstrap JS -->
-        <script src="js/dataTables.bootstrap.js"></script>
+        <script src="{{url_for('static', filename='js/dataTables.bootstrap.js')}}"></script>
         <!-- Easing JS -->
-        <script src="bower_components/jquery.easing/js/jquery.easing.js"></script>
+        <script src="{{url_for('static', filename='bower_components/jquery.easing/js/jquery.easing.js')}}"></script>
         <!-- I Can Haz JS -->
-        <script src="bower_components/icanhaz/ICanHaz.min.js"></script>
+        <script src="{{url_for('static', filename='bower_components/icanhaz/ICanHaz.min.js')}}"></script>
 
         <!-- Scroll -->
-        <script src="js/scrolling-nav.js"></script>
+        <script src="{{url_for('static', filename='js/scrolling-nav.js')}}"></script>
         <script>
             $( document ).ready(function() {
 
                 $('#table_bieres').DataTable({
-                    "ajax" : "dummy_data.json",
+                    "ajax" : "{{url_for('static', filename='dummy_data.json')}}",
                     "columns" : [
                         { data : "biere_nom"},
                         { data : "bar_nom"},
@@ -321,10 +324,11 @@
                 $.getJSON("http://api.tweecool.com/?screenname=LysakowskiM&count=5", function (data) {
                     var tweets;
                     tweets = data.tweets
+                    console.log(tweets);
                     $.each(tweets, function(i, item) {
                         var news;
                         news = ich.template_news(item);
-                        $("#news_list").append(news)
+                        $("#news_list").append(news);
 
                     })
                 });
