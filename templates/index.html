@@ -217,10 +217,29 @@
             </div>
         </section>
 
-        <!-- Definition des modals -->
-        <!-- Simple modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <!-- Bootstrap modal -->
+        <div class="modal fade" id="modal_beer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        </div>
+        <!-- Fin Bootstrap modal -->
+
+        <!-- Template I Can Haz -->
+        {% raw %}
+        <!-- Template News -->
+        <script id="template_news" type="text/html">
+            <div class="row">
+                <div class="col-lg-12">
+                    <i class="fa pull-left team-section"><img src="https://robohash.org/1ptitbeer.png?size=80x80" class="img-responsive img-circle"/></i>
+                    <h2 class="titre-news">News !</h2>
+                    <p class="text-muted">{{created_at}}</p>
+                    <h4>{{text}}</h4>
+                </div>
+            </div>
+        </script>
+        <!-- Fin Template News -->
+
+        <!-- Template Modal Beer -->
+        <script id="template_modal_beer" type="text/html">
+            <div class="modal-dialog" id="modalBeer">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -234,25 +253,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Fin modal -->
-
-
-        <!-- Template I Can Haz -->
-        <!-- Template News -->
-        {% raw %}
-        <script id="template_news" type="text/html">
-            <div class="row">
-                <div class="col-lg-12">
-                    <i class="fa pull-left team-section"><img src="https://robohash.org/1ptitbeer.png?size=80x80" class="img-responsive img-circle"/></i>
-                    <h2 class="titre-news">News !</h2>
-                    <p class="text-muted">{{created_at}}</p>
-                    <h4>{{text}}</h4>
-                </div>
-            </div>
         </script>
+        <!-- Fin Template Modal Beer -->
         {% endraw %}
-        <!-- Fin Template News -->
         <!-- Fin Template -->
 
         <!-- Javascript -->
@@ -272,6 +275,14 @@
         <!-- Scroll -->
         <script src="{{url_for('static', filename='js/scrolling-nav.js')}}"></script>
         <script>
+
+            function openModalBeer() {
+                $("#modalBeer").remove();
+                modal = ich.template_modal_beer();
+                $("#modal_beer").append(modal);
+                $("#modal_beer").modal("show");
+            };
+
             $( document ).ready(function() {
 
                 $('#table_bieres').DataTable({
@@ -289,31 +300,32 @@
                     "oSearch": { "bSmart": false, "bRegex": true },
 
                     "columnDefs": [            
-                         {
-                           "targets": 0, // Column to target
-                           "render": function ( data, type, row, meta ) {
-                             return '<a href="/get_beers/' + row._id_biere + '" data-toggle="modal" data-target="#myModal">' + data  + '</a>';
-                           }
-                         },
-                         {
-                           "targets": 1, // Column to target
-                           "render": function ( data, type, row, meta ) {
-                             return '<a href="/get_pubs/' + row._id_bar + '" data-toggle="modal" data-target="#myModal">' + data  + '</a>';
-                           }
-                         },
-                         {
-                           "targets": 3, // Column to target
-                           "render": function ( data, type, row, meta ) {
-                             return '<a href="/get_price/' + row._id + '" data-toggle="modal" data-target="#myModal">' + data  + '</a>';
-                           }
-                         },
+                        {
+                            "targets": 0, // Column to target
+                            "render": function ( data, type, row, meta ) {
+                                //return '<a href="/get_beers/' + row._id_biere + '" data-toggle="modal" data-target="#myModal">' + data  + '</a>';
+                                return '<a href="#" onclick="openModalBeer();return false">' + data  + '</a>';
+                            }
+                        },
+                        {
+                            "targets": 1, // Column to target
+                            "render": function ( data, type, row, meta ) {
+                                return '<a href="/get_pubs/' + row._id_bar + '" data-toggle="modal" data-target="#myModal">' + data  + '</a>';
+                            }
+                        },
+                        {
+                            "targets": 3, // Column to target
+                            "render": function ( data, type, row, meta ) {
+                                return '<a href="/get_price/' + row._id + '" data-toggle="modal" data-target="#myModal">' + data  + '</a>';
+                            }
+                        },
                          //Hide column
-                         {
+                        {
                             "targets": [4,5,6],
                             "visible" : false,
                             "searchable" : false,
-                         },
-                       ],
+                        },
+                    ],
                     "language" : {
                         "url" : "//cdn.datatables.net/plug-ins/f2c75b7247b/i18n/French.json"
                     }
@@ -331,7 +343,6 @@
 
                     })
                 });
-
             });
         </script>
         <!-- FIn Javascript -->
