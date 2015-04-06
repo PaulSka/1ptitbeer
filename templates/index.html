@@ -218,7 +218,7 @@
         </section>
 
         <!-- Bootstrap modal -->
-        <div class="modal fade" id="modal_beer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modal_pub" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         </div>
         <!-- Fin Bootstrap modal -->
 
@@ -238,15 +238,27 @@
         <!-- Fin Template News -->
 
         <!-- Template Modal Beer -->
-        <script id="template_modal_beer" type="text/html">
-            <div class="modal-dialog" id="modalBeer">
+        <script id="template_modal_pub" type="text/html">
+            <div class="modal-dialog" id="modalPub">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        <h4 class="modal-title" id="myModalLabel">{{name}}</h4>
                     </div>
                     <div class="modal-body">
-                    ...
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <ul>
+                                    <li><i class="fa fa-beer"></i> Nom : {{name}}</li>
+                                    <li><i class="fa fa-map-marker"></i> Adresse : {{location}}</li>
+                                    <li><i class="fa fa-phone"></i> Telephone : {{tel}}</li>
+                                    <li><i class="fa fa-globe"></i> Site Web : <a href="{{website}}">{{website}}</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-3">
+                                <img src="http://lorempixel.com/80/80/" class="img-responsive img-rounded"/>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -274,14 +286,8 @@
 
         <!-- Scroll -->
         <script src="{{url_for('static', filename='js/scrolling-nav.js')}}"></script>
-        <script>
 
-            function openModalBeer() {
-                $("#modalBeer").remove();
-                modal = ich.template_modal_beer();
-                $("#modal_beer").append(modal);
-                $("#modal_beer").modal("show");
-            };
+        <script>
 
             $( document ).ready(function() {
 
@@ -310,7 +316,8 @@
                         {
                             "targets": 1, // Column to target
                             "render": function ( data, type, row, meta ) {
-                                return '<a href="/get_pubs/' + row._id_bar + '" data-toggle="modal" data-target="#myModal">' + data  + '</a>';
+                                /*return '<a href="/get_pubs/' + row._id_bar + '" data-toggle="modal" data-target="#myModal">' + data  + '</a>';*/
+                                return '<a href="#" onclick="openModalPub(' + row._id_bar + ');return false">' + data + '</a>';
                             }
                         },
                         {
@@ -333,17 +340,35 @@
 
                 });
 
-                $.getJSON("http://api.tweecool.com/?screenname=LysakowskiM&count=5", function (data) {
-                    var tweets;
-                    tweets = data.tweets
-                    $.each(tweets, function(i, item) {
-                        var news;
-                        news = ich.template_news(item);
-                        $("#news_list").append(news);
-
-                    })
-                });
             });
+
+        </script>
+
+        <script>
+
+            function openModalPub(id_pub) {
+                console.log("get_pubs/" + id_pub);
+                $("#modalPub").remove();
+                $.getJSON("get_pubs/" + id_pub, function (data) {
+                    console.log(data);
+                    modal = ich.template_modal_pub(data);
+                    $("#modal_pub").append(modal);
+                    $("#modal_pub").modal("show");
+                });
+                
+            };
+
+            $.getJSON("http://api.tweecool.com/?screenname=LysakowskiM&count=5", function (data) {
+                var tweets;
+                tweets = data.tweets
+                $.each(tweets, function(i, item) {
+                    var news;
+                    news = ich.template_news(item);
+                    $("#news_list").append(news);
+
+                })
+            });
+
         </script>
         <!-- FIn Javascript -->
 

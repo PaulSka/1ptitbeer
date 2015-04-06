@@ -16,8 +16,15 @@ def get_all_pubs():
     return "Not Yet"
 
 @app.route("/get_pubs/<int:pubs_id>", methods=["GET"])
-def get_pubs(pubs_int):
-    return "Not Yet"
+def get_pubs(pubs_id):
+    data = {
+        "name" : "Super Bar 1",
+        "location" : "1 rue toto, 1000 Troyes",
+        "tel" : "0102030405",
+        "website" : "http://superbar1.fr",
+        "img" : "BLOB()"
+    }
+    return jsonify(data)
 
 
 @app.route("/get_all_prices", methods=["GET"])
